@@ -1,0 +1,97 @@
+project_name: blockspeed
+
+release:
+  prerelease: auto
+
+builds:
+  - 
+    main: .
+    id: bs6
+    binary: bs6
+    goos:
+      - freebsd
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+      - arm
+    goarm:
+      - '7'
+    ldflags:
+      - -s -w
+
+nfpms:
+  -
+    vendor: Distributed Works
+    homepage: https://distrib.works
+    maintainer: Victor Castell <victor@distrib.works>
+    description: Blockchain performance testing toolkit based on k6
+    license: AGPL-3.0
+
+    formats:
+      - deb
+      - rpm
+
+    overrides:
+      rpm:
+        replacements:
+          amd64: x86_64
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+dockers:
+  - image_templates:
+      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-amd64
+    dockerfile: Dockerfile.release
+    use: buildx
+    goos: linux
+    goarch: amd64
+    ids: &docker-ids
+      - bs6
+    build_flag_templates:
+      - --platform=linux/amd64
+
+  - image_templates:
+      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-arm64
+    dockerfile: Dockerfile.release
+    use: buildx
+    goos: linux
+    goarch: arm64
+    ids: *docker-ids
+    build_flag_templates:
+      - --platform=linux/arm64/v8
+
+  - image_templates:
+      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-armv7
+    dockerfile: Dockerfile.release
+    use: buildx
+    goos: linux
+    goarch: arm
+    goarm: '7'
+    ids: *docker-ids
+    build_flag_templates:
+      - --platform=linux/arm/v7
+
+docker_manifests:
+  - name_template: distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}
+    image_templates:
+      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-amd64
+      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-arm64
+      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-armv7
+
+  - name_template: distribworks/blockspeed/{{ .ProjectName }}:latest
+    image_templates:
+    - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-amd64
+    - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-arm64
+    - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-armv7
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+    - '^Merge pull request'
