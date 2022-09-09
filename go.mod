@@ -1,11 +1,11 @@
-module github.com/distribworks/test
+module github.com/distribworks/blockspeed
 
 go 1.18
 
-replace github.com/grafana/xk6-ethereum => /Users/vcastellm/src/github.com/distribworks/xk6-ethereum
+// replace github.com/distribworks/xk6-ethereum => /Users/vcastellm/src/github.com/distribworks/xk6-ethereum
 
 require (
-	github.com/grafana/xk6-ethereum v0.0.0-00010101000000-000000000000
+	github.com/distribworks/xk6-ethereum v0.0.0-20220909083745-db48031d1e07
 	go.k6.io/k6 v0.40.0
 )
 
@@ -23,7 +23,6 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/distribworks/xk6-ethereum v0.0.0-20220908071448-2e5a9d7dbcde // indirect
 	github.com/dlclark/regexp2 v1.7.0 // indirect
 	github.com/dop251/goja v0.0.0-20220906144433-c4d370b87b45 // indirect
 	github.com/fatih/color v1.13.0 // indirect

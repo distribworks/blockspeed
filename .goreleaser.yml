@@ -16,9 +16,6 @@ builds:
     goarch:
       - amd64
       - arm64
-      - arm
-    goarm:
-      - '7'
     ldflags:
       - -s -w
 
@@ -44,7 +41,7 @@ snapshot:
 
 dockers:
   - image_templates:
-      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-amd64
+      - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
     dockerfile: Dockerfile.release
     use: buildx
     goos: linux
@@ -55,7 +52,7 @@ dockers:
       - --platform=linux/amd64
 
   - image_templates:
-      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-arm64
+      - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
     dockerfile: Dockerfile.release
     use: buildx
     goos: linux
@@ -64,29 +61,16 @@ dockers:
     build_flag_templates:
       - --platform=linux/arm64/v8
 
-  - image_templates:
-      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-armv7
-    dockerfile: Dockerfile.release
-    use: buildx
-    goos: linux
-    goarch: arm
-    goarm: '7'
-    ids: *docker-ids
-    build_flag_templates:
-      - --platform=linux/arm/v7
-
 docker_manifests:
-  - name_template: distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}
+  - name_template: gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}
     image_templates:
-      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-amd64
-      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-arm64
-      - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-armv7
+      - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
+      - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64v8
 
-  - name_template: distribworks/blockspeed/{{ .ProjectName }}:latest
+  - name_template: gcr.io/distribworks/{{ .ProjectName }}:latest
     image_templates:
-    - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-amd64
-    - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-arm64
-    - distribworks/blockspeed/{{ .ProjectName }}:{{ .Version }}-armv7
+    - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
+    - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
 
 changelog:
   sort: asc

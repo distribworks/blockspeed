@@ -87,6 +87,8 @@ github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f h1:lO4WD4F/r
 github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f/go.mod h1:cuUVRXasLTGF7a8hSLbxyZXjz+1KgoB3wDUb6vlszIc=
 github.com/distribworks/xk6-ethereum v0.0.0-20220908071448-2e5a9d7dbcde h1:X3C4SwZX4yMyJfXg75lNYvgkOu1v9QEIzu9Vk8YtLJc=
 github.com/distribworks/xk6-ethereum v0.0.0-20220908071448-2e5a9d7dbcde/go.mod h1:K97muaIPRUYm5a69MyRnWHQBE4tmG0hiM979Ct6muNg=
+github.com/distribworks/xk6-ethereum v0.0.0-20220909083745-db48031d1e07 h1:Jc1I6dECicNq3WPC0LPp9v3LkbSKgY2LGuqq4xTH4T0=
+github.com/distribworks/xk6-ethereum v0.0.0-20220909083745-db48031d1e07/go.mod h1:8/zPY8/0SCbHN2yqWLhGKX+7xkcggSTyMfZjt0JjFGw=
 github.com/dlclark/regexp2 v1.4.1-0.20201116162257-a2a8dda75c91/go.mod h1:2pZnwuY/m+8K6iRw6wQdMtk+rH5tNGR1i55kozfMjCc=
 github.com/dlclark/regexp2 v1.7.0 h1:7lJfhqlPssTb1WQx4yvTHN0uElPEv52sbaECrAQxjAo=
 github.com/dlclark/regexp2 v1.7.0/go.mod h1:DHkYz0B9wPfa6wondMfaivmHpzrQ3v9q8cnmRbL6yW8=
