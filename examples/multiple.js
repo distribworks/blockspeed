@@ -27,10 +27,6 @@ const client = eth.newClient({
 });
 nonce = rclient.getNonce(tacc.address);
 
-export function setup() {
-    console.log("foooo")
-  }
-
 export default function () {
   console.log("working with address => " + tacc.address);
   const gas = client.gasPrice();

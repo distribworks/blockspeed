@@ -1,7 +1,7 @@
 import eth from 'k6/x/ethereum';
 import { utils } from "https://cdn.ethers.io/lib/ethers-5.6.umd.min.js"
 
-const client = eth.newClient({
+const client = new eth.Client({
     url: 'http://localhost:8541',
     // You can also specify a private key here
     // privateKey: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
@@ -55,8 +55,8 @@ export default function (data) {
   
   const txh = client.sendRawTransaction(tx)
   console.log("tx hash => " + txh);
-  // const receipt = client.waitForTransactionReceipt(txh)
-  // console.log("tx block hash => " + receipt.block_hash);
+  const receipt = client.waitForTransactionReceipt(txh)
+  console.log("tx block hash => " + receipt.block_hash);
   nonce = nonce + 1;
 
   // const f = client.callLoadTester(data.lta, "inc")
