@@ -12,7 +12,10 @@ const client = new eth.Client({
 const root_address = "0x85da99c8a7c2c95964c8efd687e95e632fc533d6"
 
 export function setup() {
-  return { nonce: client.getNonce(root_address) };
+  const lta = client.deployLoadTester();
+  console.log("Load tester deployed at: " + lta);
+
+  return { lta: lta, nonce: client.getNonce(root_address) };
 }
 
 export default function (data) {
@@ -32,8 +35,11 @@ export default function (data) {
   
   const txh = client.sendRawTransaction(tx)
   console.log("tx hash => " + txh);
-  // Optional: wait for the transaction to be mined
   // const receipt = client.waitForTransactionReceipt(txh)
   // console.log("tx block hash => " + receipt.block_hash);
+  
   data.nonce = data.nonce + 1;
+
+  // const f = client.callLoadTester(data.lta, "testBALANCE", true)
+  // console.log("call inc => " + f);
 }

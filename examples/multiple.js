@@ -1,6 +1,5 @@
 import eth from 'k6/x/ethereum';
 import wallet from 'k6/x/ethereum/wallet';
-import { utils } from "https://cdn.ethers.io/lib/ethers-5.6.umd.min.js"
 
 // Prepare the client and fund the VU account
 const root_address = "0x85da99c8a7c2c95964c8efd687e95e632fc533d6"

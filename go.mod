@@ -2,7 +2,7 @@ module github.com/distribworks/blockspeed
 
 go 1.18
 
-// replace github.com/distribworks/xk6-ethereum => /Users/vcastellm/src/github.com/distribworks/xk6-ethereum
+replace github.com/distribworks/xk6-ethereum => /Users/vcastellm/src/github.com/distribworks/xk6-ethereum
 
 require (
 	github.com/distribworks/xk6-ethereum v0.0.0-20220909083745-db48031d1e07

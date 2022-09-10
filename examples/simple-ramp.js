@@ -25,41 +25,31 @@ export const options = {
   },
 };
 
-const client = eth.newClient({});
-
+const client = eth.Client({
+  url: 'http://localhost:10002',
+});
 const root_address = "0x85da99c8a7c2c95964c8efd687e95e632fc533d6"
-var nonce = client.getNonce(root_address);
 
 export function setup() {
-  const accounts = client.accounts();
-  // If there's not accounts we are not running in dev mode
-  if (accounts.length != 0) {
-    // Transfer some funds from the coinbase address to the test account
-    const txh = client.sendTransaction({
-      from: accounts[0],
-      to: root_address,
-      value: 100000000000000000000,
-    });
-    client.waitForTransactionReceipt(txh)
-  }
+  return { nonce: client.getNonce(root_address) };
 }
 
 export default function (data) {
+  console.log(`nonce => ${data.nonce}`);
+  const gas = client.gasPrice();
+  console.log(`gas => ${gas}`);
+
   const bal = client.getBalance(root_address, client.blockNumber());
   console.log(`bal => ${bal}`);
   
-  const gas = client.gasPrice();
-  console.log(`gas => ${gas}`);
-  
   const tx = {
     to: "0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF",
-    value: 1000000000000000000,
+    value: Number(0.001 * 1e18),
     gas_price: gas,
-    nonce: nonce,
+    nonce: data.nonce,
   };
   
   const txh = client.sendRawTransaction(tx)
   console.log("tx hash => " + txh);
-  
-  nonce = nonce + 1;
+  data.nonce = data.nonce + 1;
 }
