@@ -9,8 +9,8 @@ release-dry-run:
 	@docker run \
 		--rm \
 		--privileged \
-		-v ${PWD}:/dkron \
-		-w /dkron \
+		-v ${PWD}:/bs6 \
+		-w /bs6 \
 		-e GITHUB_TOKEN \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v `pwd`:/go/src/$(PACKAGE_NAME) \
@@ -23,8 +23,8 @@ release:
 	@docker run \
 		--rm \
 		--privileged \
-		-v ${PWD}:/dkron \
-		-w /dkron \
+		-v ${PWD}:/bs6 \
+		-w /bs6 \
 		-e GITHUB_TOKEN \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v `pwd`:/go/src/$(PACKAGE_NAME) \
