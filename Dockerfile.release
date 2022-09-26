@@ -10,4 +10,4 @@ COPY bs6 /usr/bin/
 USER 12345
 WORKDIR /home/bs6
 
-ENTRYPOINT ["b6"]
+ENTRYPOINT ["bs6"]
