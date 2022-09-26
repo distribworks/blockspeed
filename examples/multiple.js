@@ -1,47 +1,75 @@
 import eth from 'k6/x/ethereum';
+import exec from 'k6/execution';
 import wallet from 'k6/x/ethereum/wallet';
 
-// Prepare the client and fund the VU account
+export const options = {
+  stages: [
+    { duration: '30s', target: 150 },
+    { duration: '5s', target: 75 },
+    { duration: '10s', target: 0 },
+  ],
+};
+
+// You can use an existing premined account
 const root_address = "0x85da99c8a7c2c95964c8efd687e95e632fc533d6"
-const url = "http://localhost:8541"
-const rclient = eth.newClient({
-    url: url,
-});
-var nonce = rclient.getNonce(root_address);
-const tacc = wallet.generateKey();
-console.log("new account created => " + tacc.address)
-const tx = {
-    to: tacc.address,
-    value: utils.parseEther("5"),
-    gas_price: rclient.gasPrice(),
-    nonce: nonce,
+const url = "http://localhost:10002"
+
+export function setup() {
+  const client = new eth.Client({ url: url });
+  var accounts = [];
+  var nonce = client.getNonce(root_address);
+
+  // fund the VUs accounts
+  for (let i = 0; i < exec.instance.vusInitialized; i++) {
+    var tacc = wallet.generateKey();
+    accounts[i] = {
+      private_key: tacc.private_key,
+      address: tacc.address,
+    };
+
+    // fund each account with 5 ETH
+    var tx = {
+      to: tacc.address,
+      value: Number(5 * 1e18),
+      gas_price: client.gasPrice(),
+      nonce: nonce,
+    };
+
+    console.log(JSON.stringify(tx));
+    var txh = client.sendRawTransaction(tx)
+    client.waitForTransactionReceipt(txh).then((receipt) => {
+      console.log(`account funded => ${receipt.block_hash}`);  
+    });
+
+    nonce++;
+  }
+
+  return {accounts: accounts};
 }
-const txh = rclient.sendRawTransaction(tx);
-rclient.waitForTransactionReceipt(txh);
 
-// Declare the VU client
-const client = eth.newClient({
+var nonce = 0;
+
+// VU client
+export default function (data) {
+  const client = new eth.Client({
     url: url,
-    private_key: tacc.private_key
-});
-nonce = rclient.getNonce(tacc.address);
+    privateKey: data.accounts[exec.vu.idInInstance - 1].private_key
+  });
 
-export default function () {
-  console.log("working with address => " + tacc.address);
-  const gas = client.gasPrice();
-  console.log(`gas => ${gas}`);
-
-  const bal = client.getBalance(tacc.address, client.blockNumber());
-  console.log(`bal => ${bal}`);
+  console.log(`nonce => ${nonce}`);
   
   const tx = {
     to: "0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF",
-    value: utils.parseEther("0.001"),
-    gas_price: gas,
+    value: Number(0.0001 * 1e18),
+    gas_price: client.gasPrice(),
     nonce: nonce,
   };
-  
-  const txh = client.sendRawTransaction(tx)
+
+  const txh = client.sendRawTransaction(tx);
   console.log("tx hash => " + txh);
-  nonce = nonce + 1;
+  nonce++;
+
+  client.waitForTransactionReceipt(txh).then((receipt) => {
+    console.log("tx block hash => " + receipt.block_hash);
+  });
 }
