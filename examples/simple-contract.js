@@ -1,45 +1,41 @@
 import eth from 'k6/x/ethereum';
 
-const client = new eth.Client({
-    url: 'http://localhost:10002',
-    // You can also specify a private key here
-    // privateKey: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
-    // or a mnemonic
-    // mnemonic: 'my mnemonic'
-});
+export const options = {
+  stages: [
+    { duration: '10s', target: 30 },
+    { duration: '5s', target: 30 },
+    { duration: '10s', target: 0 },
+  ],
+};
+
+const contract_bin = open("./contracts/GasBurner.bin");
+const contract_abi = open("./contracts/GasBurner.abi");
 
 // You can use an existing premined account
 const root_address = "0x85da99c8a7c2c95964c8efd687e95e632fc533d6"
+const url = "http://localhost:10002"
+const client = new eth.Client({url: url});
 
 export function setup() {
-  const lta = client.deployLoadTester();
-  console.log("Load tester deployed at: " + lta);
+  const data = {};
 
-  return { lta: lta, nonce: client.getNonce(root_address) };
+  const receipt = client.deployContract(contract_abi, contract_bin)
+  
+  data.contract_address = receipt.contract_address;
+  data.nonce = client.getNonce(root_address);
+  
+  return data;
 }
 
+var nonce = 0;
+
+// VU client
 export default function (data) {
-  console.log(`nonce => ${data.nonce}`);
-  const gas = client.gasPrice();
-  console.log(`gas => ${gas}`);
+  console.log(JSON.stringify(data));
 
-  const bal = client.getBalance(root_address, client.blockNumber());
-  console.log(`bal => ${bal}`);
-  
-  const tx = {
-    to: "0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF",
-    value: Number(1 * 1e18),
-    gas_price: gas,
-    nonce: data.nonce,
-  };
-  
-  const txh = client.sendRawTransaction(tx)
-  console.log("tx hash => " + txh);
-  // const receipt = client.waitForTransactionReceipt(txh)
-  // console.log("tx block hash => " + receipt.block_hash);
-  
-  data.nonce = data.nonce + 1;
-
-  // const f = client.callLoadTester(data.lta, "testBALANCE", true)
-  // console.log("call inc => " + f);
+  const con = client.newContract(data.contract_address, contract_abi);
+  const res = con.txn("burnGas", 10);
+  console.log(`txn hash => ${res.transaction_hash}`);
+  console.log(`gas used => ${res.gas_used}`);
+  console.log(JSON.stringify(con.call("getTotal")));
 }
