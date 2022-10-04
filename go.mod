@@ -2,10 +2,11 @@ module github.com/distribworks/blockspeed
 
 go 1.18
 
-replace github.com/distribworks/xk6-ethereum => /Users/vcastellm/src/github.com/distribworks/xk6-ethereum
+// replace github.com/distribworks/xk6-ethereum => /Users/vcastellm/src/github.com/distribworks/xk6-ethereum
 
 require (
-	github.com/distribworks/xk6-ethereum v0.0.0-20220909083745-db48031d1e07
+	github.com/distribworks/xk6-ethereum v0.0.0-20221004160845-f70f74065b91
+	github.com/fatih/color v1.13.0
 	go.k6.io/k6 v0.40.0
 )
 
@@ -25,7 +26,6 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.7.0 // indirect
 	github.com/dop251/goja v0.0.0-20220906144433-c4d370b87b45 // indirect
-	github.com/fatih/color v1.13.0 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4-0.20211119122758-180fcef48034+incompatible // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
