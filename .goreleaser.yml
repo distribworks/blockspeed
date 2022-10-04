@@ -65,7 +65,7 @@ docker_manifests:
   - name_template: ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}
     image_templates:
       - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
-      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64v8
+      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
 
   - name_template: gcr.io/distribworks/{{ .ProjectName }}:latest
     image_templates:
