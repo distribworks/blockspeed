@@ -4,9 +4,9 @@ import { fundTestAccounts } from '../helpers/init.js';
 
 export const options = {
   stages: [
-    { duration: '30m', target: 150 },
-    { duration: '15m', target: 60 },
-    { duration: '15m', target: 0 },
+    { duration: '30s', target: 50 },
+    { duration: '15s', target: 25 },
+    { duration: '15s', target: 0 },
   ],
 };
 
@@ -20,12 +20,16 @@ export function setup() {
 
 var nonce = 0;
 
+var client;
+
 // VU client
 export default function (data) {
-  const client = new eth.Client({
-    url: url,
-    privateKey: data.accounts[exec.vu.idInInstance - 1].private_key
-  });
+  if (client == null) {
+    client = new eth.Client({
+      url: url,
+      privateKey: data.accounts[exec.vu.idInInstance - 1].private_key
+    });
+  }
 
   console.log(`nonce => ${nonce}`);
   

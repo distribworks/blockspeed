@@ -1,13 +1,5 @@
 import eth from 'k6/x/ethereum';
 
-export const options = {
-  stages: [
-    { duration: '10s', target: 30 },
-    { duration: '5s', target: 30 },
-    { duration: '10s', target: 0 },
-  ],
-};
-
 const contract_bin = open("./contracts/GasBurner.bin");
 const contract_abi = open("./contracts/GasBurner.abi");
 

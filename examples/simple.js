@@ -3,7 +3,7 @@ import eth from 'k6/x/ethereum';
 const client = new eth.Client({
     url: 'http://localhost:10002',
     // You can also specify a private key here
-    // privateKey: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+    // privateKey: 'private key of your account',
     // or a mnemonic
     // mnemonic: 'my mnemonic'
 });
@@ -18,14 +18,14 @@ export function setup() {
 export default function (data) {
   console.log(`nonce => ${data.nonce}`);
   const gas = client.gasPrice();
-  console.log(`gas => ${gas}`);
+  console.log(`gas price => ${gas}`);
 
   const bal = client.getBalance(root_address, client.blockNumber());
   console.log(`bal => ${bal}`);
   
   const tx = {
     to: "0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF",
-    value: Number(1 * 1e18),
+    value: Number(0.0001 * 1e18),
     gas_price: gas,
     nonce: data.nonce,
   };
@@ -33,7 +33,8 @@ export default function (data) {
   const txh = client.sendRawTransaction(tx)
   console.log("tx hash => " + txh);
   // Optional: wait for the transaction to be mined
-  // const receipt = client.waitForTransactionReceipt(txh)
-  // console.log("tx block hash => " + receipt.block_hash);
+  // const receipt = client.waitForTransactionReceipt(txh).then((receipt) => {
+  //   console.log("tx block hash => " + receipt.block_hash);
+  // });
   data.nonce = data.nonce + 1;
 }

@@ -29,8 +29,8 @@ services:
     volumes:
       - ./grafana:/etc/grafana/provisioning/
 
-  k6:
-    image: gcr.io/distribworks/blockspeed:latest
+  bs6:
+    image: ghcr.io/distribworks/blockspeed:latest
     networks:
       - blockspeed
     ports:

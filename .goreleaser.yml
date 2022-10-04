@@ -24,7 +24,7 @@ nfpms:
     vendor: Distributed Works
     homepage: https://distrib.works
     maintainer: Victor Castell <victor@distrib.works>
-    description: Blockchain performance testing toolkit based on k6
+    description: Blockchain performance testing platform based on k6
     license: AGPL-3.0
 
     formats:
@@ -41,7 +41,7 @@ snapshot:
 
 dockers:
   - image_templates:
-      - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
+      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
     dockerfile: Dockerfile.release
     use: buildx
     goos: linux
@@ -52,7 +52,7 @@ dockers:
       - --platform=linux/amd64
 
   - image_templates:
-      - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
+      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
     dockerfile: Dockerfile.release
     use: buildx
     goos: linux
@@ -62,15 +62,15 @@ dockers:
       - --platform=linux/arm64/v8
 
 docker_manifests:
-  - name_template: gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}
+  - name_template: ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}
     image_templates:
-      - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
-      - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64v8
+      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
+      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64v8
 
   - name_template: gcr.io/distribworks/{{ .ProjectName }}:latest
     image_templates:
-    - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
-    - gcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
+    - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
+    - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
 
 changelog:
   sort: asc
