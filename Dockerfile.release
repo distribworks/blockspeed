@@ -1,9 +1,6 @@
-FROM alpine:3.15
-LABEL maintainer="Victor Castell <victor@victorcastell.com>"
+FROM alpine:3.16
 
-RUN set -x && \
-	buildDeps='bash ca-certificates openssl tzdata' && \
-	apk add --no-cache --update $buildDeps && \
+RUN apk add --no-cache ca-certificates && \
     adduser -D -u 12345 -g 12345 bs6
 COPY bs6 /usr/bin/
 
