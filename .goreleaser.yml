@@ -52,7 +52,7 @@ dockers:
       - --platform=linux/amd64
 
   - image_templates:
-      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
+      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64v8
     dockerfile: Dockerfile.release
     use: buildx
     goos: linux
@@ -65,17 +65,9 @@ docker_manifests:
   - name_template: ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}
     image_templates:
       - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
-      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
+      - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64v8
 
   - name_template: ghcr.io/distribworks/{{ .ProjectName }}:latest
     image_templates:
     - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-amd64
-    - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64
-
-changelog:
-  sort: asc
-  filters:
-    exclude:
-    - '^docs:'
-    - '^test:'
-    - '^Merge pull request'
+    - ghcr.io/distribworks/{{ .ProjectName }}:{{ .Version }}-arm64v8
