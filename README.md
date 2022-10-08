@@ -19,18 +19,18 @@ Currently only Ethereum based clients are supported, but support for other proto
 ![](demo.gif)
 ## Getting started
 
-1. Install `blockspeed`
+### Install `blockspeed`
 
 You can download the appropriate package for your OS in the [releases](https://github.com/distribworks/blockspeed/releases) section.
 
-2. Run
+### Run
 
-    1. Open Ganache and copy the private key and one account address
-    2. Replace the corresponsing values in examples/simple.js
-    3. Run `bs6 run simple.js -i 100`
+1. Open Ganache or any other blockchain client and copy the private key and one account address
+2. Replace the corresponsing values in `examples/simple.js`
+3. Run `bs6 run simple.js -i 100`
 
 For more information on different scenarios setup, refer to the official [k6 documentation](https://github.com/grafana/k6/tree/master#running-k6).
 
-Check the examples in the [examples folder](https://github.com/distribworks/blockspeed/tree/main/examples).
+Check the examples in the [examples folder](https://github.com/distribworks/xk6-ethereum/tree/main/examples).
 
 Logo by DALL-E
