@@ -5,7 +5,7 @@ go 1.18
 // replace github.com/distribworks/xk6-ethereum => /Users/vcastellm/src/github.com/distribworks/xk6-ethereum
 
 require (
-	github.com/distribworks/xk6-ethereum v0.0.0-20221004160845-f70f74065b91
+	github.com/distribworks/xk6-ethereum v0.0.0-20221004161213-7df3f5cf30ee
 	github.com/fatih/color v1.13.0
 	go.k6.io/k6 v0.40.0
 )
